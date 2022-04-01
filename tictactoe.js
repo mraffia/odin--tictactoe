@@ -7,8 +7,10 @@ const GameBoard = (function() {
 })();
 
 const DisplayController = (function() {
+    const grid = document.querySelector('.tictactoe-grid');
+
     const displayBoard = (gameBoardArr) => {
-        
+
     }
 
     return {
