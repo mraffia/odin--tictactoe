@@ -5,8 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Tic Tac Toe | mraffia</title>
+    <script src="./tictactoe.js" defer></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    
+    <div class="header">
+        <h1>Odin Tic Tac Toe</h1>
+        <p>A tic tac toe game. You can play against a friend, or a bot with adjustable difficulty levels.</p>
+    </div>
+
+    <div id="container">
+        <h3 class="game-info"></h3>
+        <div class="tictactoe-grid"></div>
+        <div class="play-options">
+            <p>Play with:</p>
+            <div class="player-button">Another Player</div>
+            <div class="bot-button">Bot</div>
+            <select name="bot-difficulty" id="bot-difficulty">
+                <option value="easy">Easy</option>
+                <option value="hard">Hard</option>
+                <option value="impossible">Impossible</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="footer">
+        By yours truly, <a href="https://github.com/mraffia"> mraffia</a>
+    </div>
+
 </body>
 </html>
