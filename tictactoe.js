@@ -28,6 +28,7 @@ const gameBoard = (() => {
 
 const Player = (mark) => {
     const playerMark = mark;
+
     const getMark = () => playerMark;
 
     const placeMark = (idx) => {
@@ -130,9 +131,11 @@ const displayController = (() => {
 displayController.addClickEvent();
 displayController.displayBoard(gameBoard.getGameBoard());
 
-const anotherPlayer = document.querySelector('.player-button');
-const bot = document.querySelector('.bot-button');
-const botDifficulty = document.querySelector('#bot-difficulty');
+// Coming Soon
+//const anotherPlayer = document.querySelector('.player-button');
+//const bot = document.querySelector('.bot-button');
+//const botDifficulty = document.querySelector('#bot-difficulty');
+
 const restart = document.querySelector('.restart-button');
 
 restart.addEventListener('click', () => {
