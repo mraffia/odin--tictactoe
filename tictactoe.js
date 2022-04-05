@@ -11,9 +11,18 @@ const gameBoard = (() => {
         gameBoardArr[idx] = mark;
     };
 
+    const clearBoard = () => {
+        gameBoardArr = [
+            "", "", "",
+            "", "", "",
+            "", "", ""
+        ];
+    };
+
     return {
         getGameBoard,
         markSpot,
+        clearBoard,
     };
 })();
 
@@ -68,9 +77,7 @@ const displayController = (() => {
     };
 
     const displayBoard = (gameBoardArr) => {
-        if (!gameBoardArr.includes("")) {
-            gameInfo.textContent = "It's a tie!";
-        } else if (
+        if (
             (gameBoardArr[0] === "X" && gameBoardArr[1] === "X" && gameBoardArr[2] === "X") ||
             (gameBoardArr[3] === "X" && gameBoardArr[4] === "X" && gameBoardArr[5] === "X") ||
             (gameBoardArr[6] === "X" && gameBoardArr[7] === "X" && gameBoardArr[8] === "X") ||
@@ -94,6 +101,8 @@ const displayController = (() => {
         ) {
             gameInfo.textContent = "O wins!";
             finished = true;
+        } else if (!gameBoardArr.includes("")) {
+            gameInfo.textContent = "It's a tie!";
         } else {
             gameInfo.textContent = "Player " + turn + "'s turn";
         }
@@ -103,13 +112,30 @@ const displayController = (() => {
         }
     };
 
+    const restartGame = () => {
+        turn = "X";
+        finished = false;
+        gameBoard.clearBoard();
+    };
+
     return {
         displayBoard,
         getTurn,
         changeTurn,
         addClickEvent,
+        restartGame,
     };
 })();
 
 displayController.addClickEvent();
 displayController.displayBoard(gameBoard.getGameBoard());
+
+const anotherPlayer = document.querySelector('.player-button');
+const bot = document.querySelector('.bot-button');
+const botDifficulty = document.querySelector('#bot-difficulty');
+const restart = document.querySelector('.restart-button');
+
+restart.addEventListener('click', () => {
+    displayController.restartGame();
+    displayController.displayBoard(gameBoard.getGameBoard());
+});
