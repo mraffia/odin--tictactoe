@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     let gameBoardArr = [
-        "X", "O", "X",
+        "X", "O", "",
         "", "", "",
         "", "", ""
     ];
@@ -24,6 +24,7 @@ const Player = (mark) => {
     const markSpot = (idx) => {
         gameBoard.markSpot(playerMark, idx);
         console.log(gameBoard.getGameBoard());
+
         displayController.changeTurn();
         displayController.displayBoard(gameBoard.getGameBoard());
     };
@@ -56,11 +57,10 @@ const displayController = (() => {
         for (let i = 0; i < blocks.length; i++) {
             blocks[i].addEventListener('click', () => {
                 let blockIndex = parseInt(blocks[i].id);
-                console.log(blockIndex);
 
-                if (turn === "X") {
+                if (turn === "X" && blocks[i].textContent === "") {
                     playerOne.markSpot(blockIndex);
-                } else {
+                } else if (turn === "O" && blocks[i].textContent === "") {
                     playerTwo.markSpot(blockIndex);
                 }
             });
