@@ -42,6 +42,7 @@ const displayController = (() => {
     const playerTwo = Player("O");
 
     let turn = "X";
+    let finished = false;
 
     const getTurn = () => turn;
     const changeTurn = () => {
@@ -52,18 +53,18 @@ const displayController = (() => {
         }
     };
 
-    const addClickables = () => {
+    const addClickEvent = (idx) => {
         for (let i = 0; i < blocks.length; i++) {
             blocks[i].addEventListener('click', () => {
                 let blockIndex = parseInt(blocks[i].id);
 
-                if (turn === "X" && blocks[i].textContent === "") {
+                if (turn === "X" && blocks[i].textContent === "" && !finished) {
                     playerOne.placeMark(blockIndex);
-                } else if (turn === "O" && blocks[i].textContent === "") {
+                } else if (turn === "O" && blocks[i].textContent === "" && !finished) {
                     playerTwo.placeMark(blockIndex);
                 }
             });
-        }
+        };
     };
 
     const displayBoard = (gameBoardArr) => {
@@ -80,6 +81,7 @@ const displayController = (() => {
             (gameBoardArr[2] === "X" && gameBoardArr[4] === "X" && gameBoardArr[6] === "X")
         ) {
             gameInfo.textContent = "X wins!";
+            finished = true;
         } else if (
             (gameBoardArr[0] === "O" && gameBoardArr[1] === "O" && gameBoardArr[2] === "O") ||
             (gameBoardArr[3] === "O" && gameBoardArr[4] === "O" && gameBoardArr[5] === "O") ||
@@ -91,6 +93,7 @@ const displayController = (() => {
             (gameBoardArr[2] === "O" && gameBoardArr[4] === "O" && gameBoardArr[6] === "O")
         ) {
             gameInfo.textContent = "O wins!";
+            finished = true;
         } else {
             gameInfo.textContent = "Player " + turn + "'s turn";
         }
@@ -104,9 +107,9 @@ const displayController = (() => {
         displayBoard,
         getTurn,
         changeTurn,
-        addClickables,
+        addClickEvent,
     };
 })();
 
-displayController.addClickables();
+displayController.addClickEvent();
 displayController.displayBoard(gameBoard.getGameBoard());
