@@ -1,44 +1,87 @@
-const gameBoard = (function() {
+const gameBoard = (() => {
     let gameBoardArr = [
         "X", "O", "X",
-        "", "", "O",
-        "X", "", ""
+        "", "", "",
+        "", "", ""
     ];
 
     const getGameBoard = () => gameBoardArr;
 
-    const placeSign = (sign, idx) => {
-        gameBoardArr[idx] = sign;
-    }
+    const markSpot = (mark, idx) => {
+        gameBoardArr[idx] = mark;
+    };
 
     return {
         getGameBoard,
-    }
+        markSpot,
+    };
 })();
 
-const Player = (sign) => {
-    const blocks = document.querySelectorAll('.grid-block');
+const Player = (mark) => {
+    const playerMark = mark;
+    const getMark = () => playerMark;
 
-    let playerSign = sign;
-    const getSign = () => playerSign;
+    const markSpot = (idx) => {
+        gameBoard.markSpot(playerMark, idx);
+        console.log(gameBoard.getGameBoard());
+        displayController.changeTurn();
+        displayController.displayBoard(gameBoard.getGameBoard());
+    };
 
-    const placeSign = (sign) => {
-
-    }
+    return {
+        getMark,
+        markSpot,
+    };
 };
 
-const displayController = (function() {
+const displayController = (() => {
     const blocks = document.querySelectorAll('.grid-block');
+    const gameInfo = document.querySelector('.game-info');
+
+    const playerOne = Player("X");
+    const playerTwo = Player("O");
+
+    let turn = "X";
+
+    const getTurn = () => turn;
+    const changeTurn = () => {
+        if (turn === "X") {
+            turn = "O";
+        } else {
+            turn = "X";
+        }
+    };
+
+    const addClickables = () => {
+        for (let i = 0; i < blocks.length; i++) {
+            blocks[i].addEventListener('click', () => {
+                let blockIndex = parseInt(blocks[i].id);
+                console.log(blockIndex);
+
+                if (turn === "X") {
+                    playerOne.markSpot(blockIndex);
+                } else {
+                    playerTwo.markSpot(blockIndex);
+                }
+            });
+        }
+    };
 
     const displayBoard = (gameBoardArr) => {
+        gameInfo.textContent = "Player " + turn + "'s turn"
+
         for (let i = 0; i < blocks.length; i++) {
             blocks[i].textContent = gameBoardArr[i];
         }
-    }
+    };
 
     return {
         displayBoard,
-    }
+        getTurn,
+        changeTurn,
+        addClickables,
+    };
 })();
 
+displayController.addClickables();
 displayController.displayBoard(gameBoard.getGameBoard());
