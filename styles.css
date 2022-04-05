@@ -36,7 +36,12 @@ h1, p {
 }
 
 .grid-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid lightgray;
+    font-size: 80px;
+
 }
 
 .footer {

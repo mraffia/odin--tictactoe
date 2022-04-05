@@ -1,16 +1,39 @@
-const GameBoard = (function() {
-    let gameBoardArr = [];
+const gameBoard = (function() {
+    let gameBoardArr = [
+        "X", "O", "X",
+        "", "", "O",
+        "X", "", ""
+    ];
+
+    const getGameBoard = () => gameBoardArr;
+
+    const placeSign = (sign, idx) => {
+        gameBoardArr[idx] = sign;
+    }
 
     return {
-        gameBoardArr,
+        getGameBoard,
     }
 })();
 
-const DisplayController = (function() {
-    const grid = document.querySelector('.tictactoe-grid');
+const Player = (sign) => {
+    const blocks = document.querySelectorAll('.grid-block');
+
+    let playerSign = sign;
+    const getSign = () => playerSign;
+
+    const placeSign = (sign) => {
+
+    }
+};
+
+const displayController = (function() {
+    const blocks = document.querySelectorAll('.grid-block');
 
     const displayBoard = (gameBoardArr) => {
-
+        for (let i = 0; i < blocks.length; i++) {
+            blocks[i].textContent = gameBoardArr[i];
+        }
     }
 
     return {
@@ -18,6 +41,4 @@ const DisplayController = (function() {
     }
 })();
 
-const Player = () => {
-
-};
+displayController.displayBoard(gameBoard.getGameBoard());
